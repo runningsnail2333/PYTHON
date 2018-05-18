@@ -1,10 +1,29 @@
-#sys.argv是系统传参，然后以列表的形式输出
 import sys
-print(sys.argv[0]) #代表输出的是整个路径
+import os
+fr_file = (sys.argv[1],"r")
+file_name_input = os.path.basename(sys.argv[1])
+fw_file = file(file_name_input + ".t","w")
 
-print(sys.argv[1:4])#输出从第二个和第三个的项目
 
+target = True
 
-eg:py test.py i am liu lin li 
-i am liu
+list_t=[]
+
+for line in fr_file:
+    line_list =line.strip().split("\t")
+    
+    if target:
+        n_col = len(line_list)
+        for i in range(n_col):
+            list_t.append([])
+        target = False
+    i = 0
+
+    for col_one in line_list:
+        list_t[i].append(col_one)
+        i = i +1
+
+for one_row_to_write in list_t:
+    fw_file.write("\t".join(one_row_to_write)+"\n")
+
 
